@@ -1,0 +1,24 @@
+{
+  "name": "realtor",
+  "version": "1.0.0",
+  "description": "Realtor assistant",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.22"
+  }
+}

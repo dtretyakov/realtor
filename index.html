@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Realtor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">Filters</div>
+    <div class="panel-body">
+        <form class="form-horizontal" data-bind="submit: addUrl">
+            <div class="form-group col-sm-1">
+                <select class="form-control" data-bind="value: source">
+                    <option value="cian">Cian</option>
+                    <option value="sob">Sob</option>
+                    <option value="avito">Avito</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-10">
+                <input type="text" class="form-control" placeholder="URL" data-bind="value: url"/>
+            </div>
+
+            <div class="col-sm-1">
+                <button type="submit" class="btn btn-default">Add</button>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer" data-bind="foreach: filters">
+        <p style="overflow-x: hidden">
+            <b data-bind="text: source"></b>: <span data-bind="text: url"></span>
+            <a href="#" data-bind="click: $parent.removeUrl">x</a>
+        </p>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Results</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Адрес</th>
+                <th>Станции</th>
+                <th>До работы</th>
+                <th>Общая/жилая/кухня</th>
+                <th>Цена</th>
+                <th>м2</th>
+                <th>Этаж</th>
+            </tr>
+            </thead>
+            <tbody data-bind="foreach: offers">
+            <tr style="height: 0">
+                <td rowspan="2" width="300">
+                    <div class="carousel slide" data-ride="carousel"
+                         data-bind="if: $data.images.length > 0, attr: {id: 'car' + id}">
+                        <div class="carousel-inner" role="listbox" data-bind="foreach: $data.images">
+                            <div class="item" data-bind="css: {active: $parent.images.indexOf($data) == 0}">
+                                <img data-bind="attr: {src: $data}">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" role="button" data-slide="prev"
+                           data-bind="attr: {href: '#car' + id}">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" role="button" data-slide="next"
+                           data-bind="attr: {href: '#car' + id}">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </td>
+                <td><a data-bind="attr: {href: link}, text: address"></a></td>
+                <td data-bind="foreach: stations">
+                    <span data-bind="text: name + '&nbsp;' + dist + 'м, '"></span>
+                </td>
+                <td data-bind="text: Math.round(timeToWork / 60) + ' мин'"></td>
+                <td data-bind="text: totalArea + '/' + livingArea + '/' + kitchenArea"></td>
+                <td data-bind="text: price"></td>
+                <td data-bind="text: Math.ceil(price / totalArea)"></td>
+                <td data-bind="text: floor + '/' + floorsCount"></td>
+            </tr>
+            <tr>
+                <td colspan="7" data-bind="text: description"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+
+<script>
+    window.$ = window.jQuery = require('./js/jquery-3.1.1.js');
+    require("./js/bootstrap.min.js");
+    window.ko = require("./js/knockout-3.4.1.js");
+    require('./js/renderer.js')
+    require('./js/worker.js')
+</script>
+</html>
