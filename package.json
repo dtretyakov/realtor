@@ -16,7 +16,7 @@
   ],
   "author": "GitHub",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^9.4.0"
   },
   "dependencies": {
     "mongodb": "^2.2.22"
